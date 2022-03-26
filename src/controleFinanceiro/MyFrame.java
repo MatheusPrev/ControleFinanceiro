@@ -14,7 +14,7 @@ public class MyFrame extends JFrame{
 
 	MyFrame(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
+		this.setSize(800,500);
 		//this.setVisible(true);
 		ImageIcon image = new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\ControleFinanceiro\\midia\\logo.png");
 		this.setIconImage(image.getImage());
@@ -24,6 +24,10 @@ public class MyFrame extends JFrame{
 	
 	public void mudaTitulo(String title){
 		this.setTitle(title);
+	}
+	
+	public int tamanhoX() {
+		return this.getWidth();
 	}
 	
 }

@@ -2,14 +2,12 @@ package controleFinanceiro;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Main {
 	
-	static Scanner entrada = new Scanner(System.in);
 	static JFrame frame = new JFrame();
 	static Banco Itau = new Banco("Itau",15495168,13209);
 	static Banco Nubank = new Banco("Nubank",9831887,7013524);
@@ -28,37 +26,36 @@ public class Main {
 		int opc = menu(patrimonio);
 		System.out.println(opc);
 		
-		//MyFrame myFrame = new MyFrame();
-		
-		/*
-		int opcao = 0;
-		do {
-			opcao = menu(patrimonio);
-			switch(opcao) {
-			case 0:
-				System.out.println("Até logo...");
-				break;
-			case 1:
-				System.out.println("Você escolheu a opção 1");
-				break;
-			case 2:
-				System.out.println("Você escolheu a opção 2");
-				//adcionar(myFrame);
-				break;
-			default:
-				System.out.println("Você escolheu uma opção invalida");
-				break;
-			}
-		}while(opcao !=0);
-		*/
-		entrada.close();
 	}
 	
 	static public int menu(Bens[] patrimonio) {	
+		//declara novo frame
+		MyFrame myFrame = new MyFrame();
+				
 		//calcula valor total
 		double valorTotal = 0.0;
 		for(Bens i : patrimonio) {
 			valorTotal = valorTotal + i.valor;
+		}
+		
+		//cria labels da barra de Op��es
+		String[] opcBarra = {"Adicionar","Extrato","Mensal","Investimentos","Previs�es","Lista de Compras","Financiamento","Configura��es"};
+		boolean[] visivelBarra = {true,true,true,true,true,true,false,true};
+		int quantidadeBarra =0;
+		for(int i=0;i<visivelBarra.length;i++) {
+			if(visivelBarra[i]) {
+				quantidadeBarra++;
+			}
+		}
+		System.out.println(quantidadeBarra);
+		JLabel[] labelBarra = new JLabel[quantidadeBarra];
+		int contAux=0;
+		for(int i=0;i<opcBarra.length;i++) {
+			if(visivelBarra[i]) {
+				labelBarra[contAux] = new JLabel();
+				labelBarra[contAux].setText(opcBarra[i]);
+				contAux++;
+			}
 		}
 		
 		//cria label do valor total
@@ -95,9 +92,14 @@ public class Main {
 		total.add(label1);
 		
 		//cria painel de barra de menu
-		JPanel barra = new JPanel();
-		barra.setBounds(0,0,500,20);
-		barra.setBackground(Color.white);
+		JPanel[] panelBarra = new JPanel[quantidadeBarra];
+		int tamanhoBarra= myFrame.tamanhoX()/quantidadeBarra;
+		for(int i=0;i<quantidadeBarra;i++) {
+			panelBarra[i] = new JPanel();
+			panelBarra[i].setBounds(i*tamanhoBarra,0,tamanhoBarra,20);
+			panelBarra[i].setBackground(Color.white);
+			panelBarra[i].add(labelBarra[i]);
+		}
 		
 		//cria um painel para cada linha em bens
 		int vertical = 85;
@@ -133,11 +135,12 @@ public class Main {
 			vertical += 10;
 		}
 		
-		//declara novo frame
-		MyFrame myFrame = new MyFrame();
+		//propriedades Frame
 		myFrame.setTitle("Controle Financeiro - Menu");
 		myFrame.add(total);
-		myFrame.add(barra);
+		for(int i=0;i<quantidadeBarra;i++) {
+			myFrame.add(panelBarra[i]);
+		}
 		for(int i=0;i<bancos.length;i++){
 			myFrame.add(topico[i]);
 		}
