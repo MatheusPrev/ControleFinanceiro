@@ -55,16 +55,19 @@ public class Main {
 	}
 	
 	static public int menu(Bens[] patrimonio) {	
+		//calcula valor total
 		double valorTotal = 0.0;
 		for(Bens i : patrimonio) {
 			valorTotal = valorTotal + i.valor;
 		}
 		
+		//cria label do valor total
 		JLabel label1 = new JLabel();
 		label1.setText("Total: R$"+ valorTotal);
 		label1.setForeground(Color.green);
 		label1.setFont(new Font("Arial",Font.BOLD,30));
 		
+		//cria uma linha para cada label de bens
 		JLabel[] tituloBanco = new JLabel[bancos.length];
 		JLabel[] valoresMenu = new JLabel[patrimonio.length];
 		JLabel[] tipoMenu = new JLabel[patrimonio.length];
@@ -85,16 +88,18 @@ public class Main {
 			valoresMenu[i].setForeground(Color.white);
 		}
 		
+		//cria painel para valor total
 		JPanel total = new JPanel();
 		total.setBounds(5,25,300,40);
 		total.setBackground(null);
 		total.add(label1);
 		
+		//cria painel de barra de menu
 		JPanel barra = new JPanel();
 		barra.setBounds(0,0,500,20);
 		barra.setBackground(Color.white);
 		
-		
+		//cria um painel para cada linha em bens
 		int vertical = 85;
 		JPanel[] topico = new JPanel[patrimonio.length];
 		JPanel[] coluna1 = new JPanel[patrimonio.length];
@@ -128,6 +133,7 @@ public class Main {
 			vertical += 10;
 		}
 		
+		//declara novo frame
 		MyFrame myFrame = new MyFrame();
 		myFrame.setTitle("Controle Financeiro - Menu");
 		myFrame.add(total);
