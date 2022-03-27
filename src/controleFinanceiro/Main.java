@@ -93,7 +93,7 @@ public class Main {
 		
 		//cria painel de barra de menu
 		JPanel[] panelBarra = new JPanel[quantidadeBarra];
-		int tamanhoBarra= myFrame.tamanhoX()/quantidadeBarra;
+		int tamanhoBarra= myFrame.getWidth()/quantidadeBarra;
 		for(int i=0;i<quantidadeBarra;i++) {
 			panelBarra[i] = new JPanel();
 			panelBarra[i].setBounds(i*tamanhoBarra,0,tamanhoBarra,20);
