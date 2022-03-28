@@ -14,6 +14,8 @@ public class Main {
 	static Banco[] bancos = {Itau,Nubank};
 
 	public static void main(String[] args) {
+		sqliteConn conn = new sqliteConn();
+		conn.getConnection();
 		
 		Bens ItauCC = new Bens(Itau,"Conta corrente",225.32);
 		Bens ItauCredito = new Bens(Itau,"Credito",-25.45);
