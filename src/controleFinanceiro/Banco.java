@@ -15,4 +15,11 @@ public class Banco {
 		int temp = cor1 + 1052688;
 		this.terciaria = new Color(temp);
 	}
+	
+	public Banco(String banco, int cor1, int cor2, int cor3) {
+		this.banco = banco;
+		this.primaria = new Color(cor1);
+		this.secundaria = new Color(cor2);
+		this.terciaria = new Color(cor3);
+	}
 }

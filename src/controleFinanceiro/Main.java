@@ -11,18 +11,17 @@ public class Main {
 	static JFrame frame = new JFrame();
 	static Banco Itau = new Banco("Itau",15495168,13209);
 	static Banco Nubank = new Banco("Nubank",9831887,7013524);
-	static Banco[] bancos = {Itau,Nubank};
+	static Banco Santander = new Banco("Santander",555,555);
+	//static Banco[] bancos = {Itau,Nubank};
+	
 
-	public static void main(String[] args) {
-		sqliteConn conn = new sqliteConn();
-		conn.getConnection();
-		
-		Bens ItauCC = new Bens(Itau,"Conta corrente",225.32);
-		Bens ItauCredito = new Bens(Itau,"Credito",-25.45);
-		Bens ItauPrevidencia = new Bens(Itau,"Previdencia",5231.17);
-		Bens NubancCC = new Bens(Nubank,"Conta corrente",107.05);
-		Bens NubancCredito = new Bens(Nubank,"Credito",-51.14);
-		Bens ItauCDB = new Bens(Itau,"CDB",7127.64);
+	public static void main(String[] args) {	
+		Bens ItauCC = new Bens("Itau","Conta corrente",225.32);
+		Bens ItauCredito = new Bens("Itau","Credito",-25.45);
+		Bens ItauPrevidencia = new Bens("Itau","Previdencia",5231.17);
+		Bens NubancCC = new Bens("Nubank","Conta corrente",107.05);
+		Bens NubancCredito = new Bens("Nubank","Credito",-51.14);
+		Bens ItauCDB = new Bens("Itau","CDB",7127.64);
 		Bens[] patrimonio = {ItauCC,ItauCredito,ItauPrevidencia,NubancCC,ItauCDB,NubancCredito};
 		
 		int opc = menu(patrimonio);
@@ -31,6 +30,13 @@ public class Main {
 	}
 	
 	static public int menu(Bens[] patrimonio) {	
+		sqliteConn conn = new sqliteConn();
+		int qtdBancos = conn.selectQtdBancos();
+		Banco[] bancos = new Banco[qtdBancos];
+		for(int i=0;i<qtdBancos;i++) {
+			bancos[i] = conn.baixaBancos(i);
+		}
+		
 		//declara novo frame
 		MyFrame myFrame = new MyFrame();
 				
@@ -49,7 +55,6 @@ public class Main {
 				quantidadeBarra++;
 			}
 		}
-		System.out.println(quantidadeBarra);
 		JLabel[] labelBarra = new JLabel[quantidadeBarra];
 		int contAux=0;
 		for(int i=0;i<opcBarra.length;i++) {
@@ -116,7 +121,7 @@ public class Main {
 			topico[i].add(tituloBanco[i]);
 			int k = 0;
 			for(int j=0;j<patrimonio.length;j++) {
-				if(patrimonio[j].banco == bancos[i]) {
+				if(patrimonio[j].banco.equals(bancos[i].banco)) {
 					k++;
 					coluna1[j] = new JPanel();
 					coluna2[j] = new JPanel();
