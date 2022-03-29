@@ -2,6 +2,8 @@ package controleFinanceiro;
 
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.JButton;
 //import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,9 +34,7 @@ public class Main {
 		}
 		int qtdBarraOpc = conn.selectBarraOpc();
 		String[] BarraOpc = new String[qtdBarraOpc];
-		System.out.println(qtdBarraOpc);
 		for(int i=0;i<qtdBarraOpc;i++) {
-			System.out.println(i);
 			BarraOpc[i] = conn.baixaBarraOpc(i);
 		}
 		
@@ -47,11 +47,13 @@ public class Main {
 			valorTotal = valorTotal + i.valor;
 		}
 		
-		//cria labels da barra de Opções
-		JLabel[] labelBarra = new JLabel[BarraOpc.length];
+		//cria buttons da barra de Opções
+		JButton[] buttonBarra = new JButton[BarraOpc.length];
+		int tamanhoBarra= myFrame.getWidth()/qtdBarraOpc;
 		for(int i=0;i<BarraOpc.length;i++) {
-				labelBarra[i] = new JLabel();
-				labelBarra[i].setText(BarraOpc[i]);
+			buttonBarra[i] = new JButton();
+			buttonBarra[i].setText(BarraOpc[i]);
+			buttonBarra[i].setBounds(i*tamanhoBarra,0,tamanhoBarra,20);
 		}
 		
 		//cria label do valor total
@@ -86,16 +88,6 @@ public class Main {
 		total.setBounds(5,25,300,40);
 		total.setBackground(null);
 		total.add(label1);
-		
-		//cria painel de barra de menu
-		JPanel[] panelBarra = new JPanel[qtdBarraOpc];
-		int tamanhoBarra= myFrame.getWidth()/qtdBarraOpc;
-		for(int i=0;i<qtdBarraOpc;i++) {
-			panelBarra[i] = new JPanel();
-			panelBarra[i].setBounds(i*tamanhoBarra,0,tamanhoBarra,20);
-			panelBarra[i].setBackground(Color.white);
-			panelBarra[i].add(labelBarra[i]);
-		}
 		
 		//cria um painel para cada linha em bens
 		int vertical = 85;
@@ -135,7 +127,7 @@ public class Main {
 		myFrame.setTitle("Controle Financeiro - Menu");
 		myFrame.add(total);
 		for(int i=0;i<qtdBarraOpc;i++) {
-			myFrame.add(panelBarra[i]);
+			myFrame.add(buttonBarra[i]);
 		}
 		for(int i=0;i<bancos.length;i++){
 			myFrame.add(topico[i]);
