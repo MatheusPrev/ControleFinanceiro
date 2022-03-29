@@ -285,7 +285,7 @@ public String baixaSubTipos(int linhaProc){
 	int linhaSelect = 0;
 	String subtipo = "";
 	
-    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 ORDER BY tipo;";
+    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 ORDER BY subtipo;";
     
     try (Connection conn = this.connect();
          Statement stmt  = conn.createStatement();
@@ -309,7 +309,7 @@ public String baixaSubTipos(int linhaProc,String tipo){
 	int linhaSelect = 0;
 	String subtipo = "";
 	
-    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 AND tipo='"+tipo+" ORDER BY tipo;";
+    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 AND tipo='"+tipo+"' ORDER BY subtipo;";
     
     try (Connection conn = this.connect();
          Statement stmt  = conn.createStatement();

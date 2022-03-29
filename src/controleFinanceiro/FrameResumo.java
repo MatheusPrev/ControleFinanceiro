@@ -11,9 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FrameResumo extends JFrame implements ActionListener{
-
 	private static final long serialVersionUID = 1L;
-
+	
 	FrameResumo(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700,400);
@@ -145,7 +144,7 @@ public class FrameResumo extends JFrame implements ActionListener{
 			this.add(coluna1[i]);
 			this.add(coluna2[i]);
 		}
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
 	@Override
@@ -178,7 +177,9 @@ public class FrameResumo extends JFrame implements ActionListener{
 			System.out.println("7");
 			break;
 		case "Adicionar nova Entrada":
-			@SuppressWarnings("unused") AdcionarEntrada entrada = new AdcionarEntrada();
+			System.out.println("8");
+			AdcionarEntrada novaEntrada = new AdcionarEntrada();
+			novaEntrada.setVisible(true);
 			break;
     }
 	
