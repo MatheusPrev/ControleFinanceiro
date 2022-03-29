@@ -17,6 +17,7 @@ public class AdcionarEntrada extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	JComboBox comboTipo;
+	JComboBox comboSubtipo;
 	JButton novoGasto;
 
 	AdcionarEntrada(){
@@ -39,6 +40,8 @@ public class AdcionarEntrada extends JFrame implements ActionListener{
 				
 		comboTipo = new JComboBox(tipos);
 		comboTipo.addActionListener(this);
+		comboSubtipo = new JComboBox(baixaSubTipo());
+		comboSubtipo.addActionListener(this);
 		
 		//cria botão para adicionar compra
 		novoGasto = new JButton();
@@ -49,6 +52,7 @@ public class AdcionarEntrada extends JFrame implements ActionListener{
 		//propriedades Frame
 		this.setTitle("Adicionar Entrada");
 		this.add(comboTipo);
+		this.add(comboSubtipo);
 		this.add(novoGasto);
 		this.setVisible(true);
 	}
@@ -56,11 +60,35 @@ public class AdcionarEntrada extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
         if(e.getSource()==comboTipo) {
-        	System.out.println(comboTipo.getSelectedItem());
+        	System.out.print(comboTipo.getSelectedItem()+" - ");
+        	String[] teste;
+        	teste = baixaSubTipo(comboTipo.getSelectedItem().toString());
         }else if(e.getSource()==novoGasto) {
         	System.out.println(comboTipo.getSelectedItem());
         }
 	
+	}
+	
+	public String[] baixaSubTipo(String tipo) {
+		sqliteConn conn = new sqliteConn();
+		int qtdSubTipos = conn.selectQtdSubTipos(tipo);
+		System.out.println(qtdSubTipos);
+		String[] subTipos = new String[qtdSubTipos];
+		for(int i=0;i<qtdSubTipos;i++) {
+			subTipos[i] = conn.baixaSubTipos(i);
+		}
+		return subTipos;
+	}
+	
+	public String[] baixaSubTipo() {
+		sqliteConn conn = new sqliteConn();
+		int qtdSubTipos = conn.selectQtdSubTipos();
+		System.out.println(qtdSubTipos);
+		String[] subTipos = new String[qtdSubTipos];
+		for(int i=0;i<qtdSubTipos;i++) {
+			subTipos[i] = conn.baixaSubTipos(i);
+		}
+		return subTipos;
 	}
 	
 }

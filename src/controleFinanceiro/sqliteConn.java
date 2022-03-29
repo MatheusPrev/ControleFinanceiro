@@ -229,4 +229,103 @@ public String baixaTipos(int linhaProc){
         }
         return tipo;
     }
+
+public int selectQtdSubTipos(){
+    String sql = "SELECT count(DISTINCT subtipo) as Qtd FROM Classes WHERE ativa = 1";
+    
+    int i = 0;
+	int Qtd = 0;
+    
+    try (Connection conn = this.connect();
+         Statement stmt  = conn.createStatement();
+         ResultSet rs    = stmt.executeQuery(sql)){
+        
+        // loop through the result set
+        while (rs.next()) {
+        	Qtd = rs.getInt("Qtd");
+        	i++;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    if(i==1) {
+    	return Qtd;
+    }else {
+    	return 0;
+    }
+}
+
+public int selectQtdSubTipos(String tipo){
+    String sql = "SELECT count(DISTINCT subtipo) as Qtd FROM Classes WHERE ativa = 1 AND tipo='"+tipo+"'";
+    
+    int i = 0;
+	int Qtd = 0;
+    
+    try (Connection conn = this.connect();
+         Statement stmt  = conn.createStatement();
+         ResultSet rs    = stmt.executeQuery(sql)){
+        
+        // loop through the result set
+        while (rs.next()) {
+        	Qtd = rs.getInt("Qtd");
+        	i++;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    if(i==1) {
+    	return Qtd;
+    }else {
+    	return 0;
+    }
+}
+
+public String baixaSubTipos(int linhaProc){
+	
+	int linhaSelect = 0;
+	String subtipo = "";
+	
+    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 ORDER BY tipo;";
+    
+    try (Connection conn = this.connect();
+         Statement stmt  = conn.createStatement();
+         ResultSet rs    = stmt.executeQuery(sql)){
+        
+        // loop through the result set
+        while (rs.next()) {
+        	if(linhaSelect == linhaProc) {
+                subtipo = rs.getString("subtipo");
+        	}
+        	linhaSelect ++;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return subtipo;
+}
+
+public String baixaSubTipos(int linhaProc,String tipo){
+	
+	int linhaSelect = 0;
+	String subtipo = "";
+	
+    String sql = "SELECT DISTINCT subtipo FROM Classes WHERE ativa = 1 AND tipo='"+tipo+" ORDER BY tipo;";
+    
+    try (Connection conn = this.connect();
+         Statement stmt  = conn.createStatement();
+         ResultSet rs    = stmt.executeQuery(sql)){
+        
+        // loop through the result set
+        while (rs.next()) {
+        	if(linhaSelect == linhaProc) {
+                subtipo = rs.getString("subtipo");
+        	}
+        	linhaSelect ++;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return subtipo;
+}
+
 }
