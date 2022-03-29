@@ -127,4 +127,57 @@ public String baixaBarraOpc(int linhaProc){
         	return 0;
         }
     }
+	
+public Bens baixaBens(int linhaProc){
+	int linhaSelect = 0;
+	String banco = "";
+	String tipoConta = "";
+	double valor = 0;
+	
+    String sql = "SELECT banco, tipo, valor FROM Bens WHERE ativa = 1";
+    
+    try (Connection conn = this.connect();
+         Statement stmt  = conn.createStatement();
+         ResultSet rs    = stmt.executeQuery(sql)){
+        
+        // loop through the result set
+        while (rs.next()) {
+        	if(linhaSelect == linhaProc) {
+                banco = rs.getString("banco");
+                tipoConta = rs.getString("tipo");
+                valor = rs.getDouble("valor");
+        	}
+        	linhaSelect ++;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    Bens temp = new Bens(banco,tipoConta,valor);
+    return temp;
+    }
+	
+	public int selectQtdBens(){
+        String sql = "SELECT count(tipo) as Qtd FROM Bens WHERE ativa = 1";
+        
+        int i = 0;
+    	int Qtd = 0;
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+            	Qtd = rs.getInt("Qtd");
+            	i++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        if(i==1) {
+        	return Qtd;
+        }else {
+        	return 0;
+        }
+    }
 }
