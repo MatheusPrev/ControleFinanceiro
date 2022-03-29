@@ -12,15 +12,11 @@ import javax.swing.JPanel;
 
 public class FrameResumo extends JFrame implements ActionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	FrameResumo(Bens[] patrimonio1){
+	FrameResumo(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700,400);
-		//this.setVisible(true);
 		ImageIcon image = new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\ControleFinanceiro\\midia\\logo.png");
 		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(new Color(0x4A4A4A));
@@ -127,6 +123,13 @@ public class FrameResumo extends JFrame implements ActionListener{
 			}
 			vertical += 10;
 		}
+		
+		//cria botão para adicionar compra
+				vertical -= 35;
+				JButton novoGasto = new JButton();
+				novoGasto.setText("Adicionar nova Entrada");
+				novoGasto.setBounds(400, vertical, 200, 30);
+				novoGasto.addActionListener(this);
 			
 		//propriedades Frame
 		this.setTitle("Controle Financeiro - Menu");
@@ -134,6 +137,7 @@ public class FrameResumo extends JFrame implements ActionListener{
 		for(int i=0;i<qtdBarraOpc;i++) {
 			this.add(buttonBarra[i]);
 		}
+		this.add(novoGasto);
 		for(int i=0;i<bancos.length;i++){
 			this.add(topico[i]);
 		}
@@ -173,7 +177,10 @@ public class FrameResumo extends JFrame implements ActionListener{
 		case "Configs.":
 			System.out.println("7");
 			break;
-        }
+		case "Adicionar nova Entrada":
+			@SuppressWarnings("unused") AdcionarEntrada entrada = new AdcionarEntrada();
+			break;
+    }
 	
 	}
 	

@@ -180,4 +180,53 @@ public Bens baixaBens(int linhaProc){
         	return 0;
         }
     }
+	
+	public int selectQtdTipos(){
+        String sql = "SELECT count(DISTINCT tipo) as Qtd FROM Classes WHERE ativa = 1";
+        
+        int i = 0;
+    	int Qtd = 0;
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+            	Qtd = rs.getInt("Qtd");
+            	i++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        if(i==1) {
+        	return Qtd;
+        }else {
+        	return 0;
+        }
+    }
+	
+public String baixaTipos(int linhaProc){
+		
+		int linhaSelect = 0;
+		String tipo = "";
+    	
+        String sql = "SELECT DISTINCT tipo FROM Classes WHERE ativa = 1 ORDER BY tipo;";
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+            	if(linhaSelect == linhaProc) {
+                    tipo = rs.getString("tipo");
+            	}
+            	linhaSelect ++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return tipo;
+    }
 }
