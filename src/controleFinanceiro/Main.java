@@ -1,13 +1,5 @@
 package controleFinanceiro;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JButton;
-//import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 public class Main {
 
 	public static void main(String[] args) {	
@@ -19,7 +11,7 @@ public class Main {
 		Bens ItauCDB = new Bens("Itau","CDB",7127.64);
 		Bens[] patrimonio = {ItauCC,ItauCredito,ItauPrevidencia,NubancCC,ItauCDB,NubancCredito};
 		
-		MyFrame Menu = new MyFrame(patrimonio);
+		FrameResumo telaResumo = new FrameResumo(patrimonio);
 		
 		System.out.println("tchau");
 		

@@ -10,14 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MyFrame extends JFrame implements ActionListener{
+public class FrameResumo extends JFrame implements ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MyFrame(Bens[] patrimonio){
+	FrameResumo(Bens[] patrimonio1){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700,400);
 		//this.setVisible(true);
@@ -39,7 +39,11 @@ public class MyFrame extends JFrame implements ActionListener{
 		for(int i=0;i<qtdBarraOpc;i++) {
 			BarraOpc[i] = conn.baixaBarraOpc(i);
 		}
-		
+		int qtdBens = conn.selectQtdBens();
+		Bens[] patrimonio = new Bens[qtdBens];
+		for(int i=0;i<qtdBens;i++) {
+			patrimonio[i] = conn.baixaBens(i);
+		}
 						
 		//calcula valor total
 		double valorTotal = 0.0;
@@ -59,7 +63,7 @@ public class MyFrame extends JFrame implements ActionListener{
 			
 		//cria label do valor total
 		JLabel label1 = new JLabel();
-		label1.setText("Total: R$"+ valorTotal);
+		label1.setText(String.format("Total: R$%.2f",valorTotal));
 		label1.setForeground(Color.green);
 		label1.setFont(new Font("Arial",Font.BOLD,30));
 		
@@ -142,7 +146,35 @@ public class MyFrame extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Apertaram o botao");
+    	String texto = e.getSource().toString();
+    	String[] textoSeparado = texto.split(",");
+    	texto = textoSeparado[25];
+    	textoSeparado = texto.split("=");
+    	texto = textoSeparado[1];
+        switch(texto) {
+        case "Atualizar":
+        	System.out.println("1");
+        	break;
+		case "Extrato":
+			System.out.println("2");
+			break;
+		case "Ctl. Mensal":
+			System.out.println("3");
+			break;
+		case "Investimentos":
+			System.out.println("4");
+			break;
+		case "Previsões":
+			System.out.println("5");
+			break;
+		case "Compras Ftr.":
+			System.out.println("6");
+			break;
+		case "Configs.":
+			System.out.println("7");
+			break;
+        }
+	
 	}
 	
 }
